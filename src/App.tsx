@@ -1,11 +1,11 @@
 import './App.css';
+import Login from './pages/login';
 
-function App() {
+export default function App() {
   return (
-    <div className="bg-red-100 p-4 rounded-lg shadow m-4 min-h-screen">
-    <span className="text-blue-500 font-bold text-xl">tailwind test</span>
-</div>
+    <div className=' h-screen flex flex-col items-center justify-center p-5'>
+      <h1>주차 정산 서비스</h1>
+      <Login></Login>
+    </div>
   );
 }
-
-export default App;
