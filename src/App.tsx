@@ -1,6 +1,7 @@
 import './App.css';
 import Login from './pages/login';
 import Settlement from './pages/settlement';
+import Choice from './pages/choice';
 import Payment from './pages/payment';
 
 export default function App() {
@@ -9,7 +10,8 @@ export default function App() {
       <h1>주차 정산 서비스</h1>
       {/* <Login></Login> */}
       {/* <Settlement></Settlement> */}
-      <Payment></Payment>
+      <Choice></Choice>
+      {/* <Payment></Payment> */}
     </div>
   );
 }
