@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { app } from "../firebase";
-import { getDownloadURL, ref, uploadBytes, getStorage } from "firebase/storage";
+import React, { useState, useEffect } from 'react';
+import { app, db } from "../firebase";
+import { getDownloadURL, ref, uploadBytes, getStorage, listAll, } from "firebase/storage";
+import { addDoc, collection, } from "firebase/firestore";
 
 export default function ImageUploadTest() {
     const [imageUpload, setImageUpload] = useState<File | null>(null);
@@ -18,6 +19,7 @@ export default function ImageUploadTest() {
                 img.onload = () => {
                     setImageUrl(reader.result as string);
                     setImageUpload(file);
+                    uploadFirestore(reader.result as string);
                 };
                 img.src = reader.result as string;
             };
@@ -37,6 +39,18 @@ export default function ImageUploadTest() {
                 setImageUrl('');
             });
         });
+    };
+
+    const uploadFirestore = async (url: string) => {
+        try {
+            const docRef = await addDoc(collection(db, "parking_records"), {
+                imgUrl: url,
+                timestamp: new Date(),
+            });
+            console.log("문서 ID: ", docRef.id);
+        } catch (e) {
+            console.error("문서 추가 오류: ", e);
+        }
     };
 
     return (
