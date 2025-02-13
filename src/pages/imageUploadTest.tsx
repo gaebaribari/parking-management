@@ -19,7 +19,6 @@ export default function ImageUploadTest() {
                 img.onload = () => {
                     setImageUrl(reader.result as string);
                     setImageUpload(file);
-                    uploadFirestore(reader.result as string);
                 };
                 img.src = reader.result as string;
             };
@@ -31,10 +30,11 @@ export default function ImageUploadTest() {
     };
 
     const upload = () => {
-        if (imageUpload === null) return;
+        if (!imageUpload) return;
         const imageRef = ref(storage, `images/${imageUpload.name}`);
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
-            getDownloadURL(snapshot.ref).then(() => {
+            getDownloadURL(snapshot.ref).then((url) => {
+                uploadFirestore(url);
                 alert('업로드 완료');
                 setImageUrl('');
             });
@@ -42,10 +42,16 @@ export default function ImageUploadTest() {
     };
 
     const uploadFirestore = async (url: string) => {
+        const TIME_ZONE = 9 * 60 * 60 * 1000;
+        const d = new Date();
+        
+        const date = new Date(d.getTime() + TIME_ZONE).toISOString().split('T')[0];
+        const time = d.toTimeString().split(' ')[0];
+        
         try {
             const docRef = await addDoc(collection(db, "parking_records"), {
                 imgUrl: url,
-                timestamp: new Date(),
+                timestamp: date + ' ' + time,
             });
             console.log("문서 ID: ", docRef.id);
         } catch (e) {
