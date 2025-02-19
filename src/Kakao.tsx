@@ -17,7 +17,7 @@ export default function Kakao() {
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    const getKakaoUserInfo = async (accessToken:string) => {
+    const getKakaoUserInfo = async (accessToken: string) => {
         try {
             const response = await fetch('https://kapi.kakao.com/v2/user/me', {
                 headers: {
@@ -26,14 +26,11 @@ export default function Kakao() {
                 },
             });
             const data = await response.json();
-            console.log(data);
-            setUserInfo(
-                {
+            setUserInfo({
                     nickname: data.properties.nickname,
                     profile_image: data.properties.profile_image,
                     thumbnail_image: data.properties.thumbnail_image,
-                }
-            )
+                })
 
         } catch (error) {
             console.error('사용자 정보 조회 실패:', error);
@@ -53,8 +50,6 @@ export default function Kakao() {
                 })
 
                 const tokenData = await tokenResponse.json();
-        window.Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
-                window.Kakao.Auth.setAccessToken(tokenData.access_token);
                 getKakaoUserInfo(tokenData.access_token);
 
             } catch (err) {
