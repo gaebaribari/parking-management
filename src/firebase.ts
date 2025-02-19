@@ -1,18 +1,19 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBuMZ5miR9fR61ykUgF0xXexKciO5ZFuPo",
-  authDomain: "parking-management-2cba1.firebaseapp.com",
-  projectId: "parking-management-2cba1",
-  storageBucket: "parking-management-2cba1.firebasestorage.app",
-  messagingSenderId: "249823524635",
-  appId: "1:249823524635:web:832f05645b77edc9e285be",
-  measurementId: "G-89S86BWFBS"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASURE_MENT_ID,
 };
 
-
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getFirestore(app);
+const auth = getAuth(app);
 
-export { app, analytics };
+export { app, db, auth };
