@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/parking-management/static/css/main.68fc4720.css",
+    "main.js": "/parking-management/static/js/main.d04a5a7e.js",
+    "static/js/453.a3e1f7d7.chunk.js": "/parking-management/static/js/453.a3e1f7d7.chunk.js",
+    "index.html": "/parking-management/index.html",
+    "main.68fc4720.css.map": "/parking-management/static/css/main.68fc4720.css.map",
+    "main.d04a5a7e.js.map": "/parking-management/static/js/main.d04a5a7e.js.map",
+    "453.a3e1f7d7.chunk.js.map": "/parking-management/static/js/453.a3e1f7d7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.68fc4720.css",
+    "static/js/main.d04a5a7e.js"
+  ]
+}
