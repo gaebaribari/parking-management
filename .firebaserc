@@ -1,5 +1,8 @@
 {
-  "projects": {
-    "default": "fourcuts-a6bcc"
-  }
+	"projects": {
+		"default": "fourcuts-a6bcc",
+		"parking-management": "parking-management-2cba1"
+	},
+	"targets": {},
+	"etags": {}
 }
