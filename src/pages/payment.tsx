@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 // 뒤로가기 있어야돼
 // 결제하기 바로가는 버튼만들기 왜냐 결제하기는 돈 바로 가는게 좋을거같앗따
 

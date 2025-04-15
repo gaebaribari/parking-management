@@ -1,30 +1,7 @@
 {
-	"compilerOptions": {
-		"target": "es2017",
-		"lib": ["dom", "dom.iterable", "esnext"],
-		"allowJs": true,
-		"skipLibCheck": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"strict": true,
-		"forceConsistentCasingInFileNames": true,
-		"noFallthroughCasesInSwitch": true,
-		"module": "CommonJS",
-		"moduleResolution": "node",
-		"noImplicitReturns": false,
-		"noUnusedLocals": false,
-		"outDir": "lib",
-		"sourceMap": true,
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"noEmit": true,
-		"jsx": "react-jsx"
-	},
-	"compileOnSave": true,
-	"include": [
-		"src",
-		"functions/src/services",
-		"functions/src/types",
-		"functions/src/config/constants.ts"
+	"files": [],
+	"references": [
+		{ "path": "./tsconfig.app.json" },
+		{ "path": "./tsconfig.node.json" }
 	]
 }

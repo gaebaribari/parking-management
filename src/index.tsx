@@ -1,7 +1,8 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import React from "react";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import {} from "module";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Kakao from "./Kakao";
 import Choice from "./pages/choice";
@@ -11,7 +12,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-	<Router basename={process.env.PUBLIC_URL}>
+	<Router basename={import.meta.env.PUBLIC_URL}>
 		<Routes>
 			<Route path="/" element={<App />} />
 			<Route path="/auth/kakao/callback" element={<Kakao />} />
@@ -19,4 +20,3 @@ root.render(
 		</Routes>
 	</Router>
 );
-reportWebVitals();
