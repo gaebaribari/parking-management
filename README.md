@@ -5,7 +5,8 @@
 
 ## 주요 기능
 
-- 개발 환경 : CRA + React + Typescript + Tailwind CSS
+- 개발 환경 : Vite + React + Typescript + Tailwind CSS
+- CRA 프로젝트 Vite로 마이그레이션
 - REST API를 활용한 카카오 로그인 구현
 - Firebase Database를 활용한 데이터 조회 및 업로드
 - Firebase Storage를 통해 이미지 서버 업로드
