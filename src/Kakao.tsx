@@ -42,12 +42,10 @@ export default function Kakao() {
 						method: "POST",
 						headers: { "Content-Type": "application/x-www-form-urlencoded" },
 						body: `grant_type=authorization_code&client_id=${
-							import.meta.env.REACT_APP_REST_API_KEY
+							import.meta.env.VITE_REST_API_KEY
 						}&redirect_uri=${
-							import.meta.env.REACT_APP_REDIRECT_URI
-						}&code=${code}&client_secret=${
-							import.meta.env.REACT_APP_CLIENT_SECRET
-						}`,
+							import.meta.env.VITE_REDIRECT_URI
+						}&code=${code}&client_secret=${import.meta.env.VITE_CLIENT_SECRET}`,
 					}
 				);
 
