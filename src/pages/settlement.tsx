@@ -1,6 +1,13 @@
 import { getDocs, collection, query } from "firebase/firestore";
 import { db } from "../firebase";
-import { useState } from "react";
+import { useState, CSSProperties } from "react";
+import { SyncLoader } from "react-spinners";
+
+const override: CSSProperties = {
+	display: "block",
+	margin: "0 auto",
+	borderColor: "red",
+};
 
 type Data = {
 	car_number: string;
@@ -15,9 +22,8 @@ type ParkingData = {
 
 export default function Settlement() {
 	const [inputValue, setInputValue] = useState<string>("");
-	const [inputIsValid, setInputIsValid] = useState(false);
 	const [inputErrorMessage, setInputErrorMessage] = useState("");
-
+	const [loading, setLoading] = useState(false);
 	const [parkingRecord, setParkingRecord] = useState<ParkingData>();
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -36,6 +42,7 @@ export default function Settlement() {
 			return;
 		}
 
+		setLoading(true);
 		const q = query(collection(db, "parking_records"));
 		const querySnapshot = await getDocs(q);
 
@@ -49,10 +56,11 @@ export default function Settlement() {
 		});
 
 		if (!findInputValue) {
+			setLoading(false);
 			setInputErrorMessage("등록되지않은 차량입니다");
 			return;
 		} else {
-			setInputIsValid(true);
+			setLoading(false);
 			setParkingRecord(findInputValue);
 		}
 	};
@@ -82,7 +90,19 @@ export default function Settlement() {
 					</span>
 				</div>
 			</form>
-			{inputIsValid && (
+			{loading ? (
+				<div className="flex p-5 align-middle justify-center">
+					<SyncLoader
+						color="#1447e6"
+						loading={loading}
+						cssOverride={override}
+						size={10}
+						aria-labels="Loading Spinner"
+						data-testid="loader"
+					/>
+				</div>
+			) : null}
+			{!loading && parkingRecord && (
 				<div>
 					<div>
 						{/* {parkingRecord?.data.car_number} */}
