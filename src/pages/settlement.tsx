@@ -24,10 +24,11 @@ export default function Settlement() {
 	const [inputValue, setInputValue] = useState<string>("");
 	const [inputErrorMessage, setInputErrorMessage] = useState("");
 	const [loading, setLoading] = useState(false);
-	const [parkingRecord, setParkingRecord] = useState<ParkingData>();
+	const [parkingInfo, setParkingInfo] = useState<ParkingData | undefined>();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		setParkingInfo(undefined);
 
 		if (inputValue == "") {
 			setInputErrorMessage("차량 번호 4자리를 입력해주세요");
@@ -42,6 +43,18 @@ export default function Settlement() {
 			return;
 		}
 
+		const result = await getParkingInfo(inputValue);
+		if (!result) {
+			setLoading(false);
+			setInputErrorMessage("등록되지않은 차량입니다");
+			return;
+		} else {
+			setParkingInfo(result);
+			setLoading(false);
+		}
+	};
+
+	async function getParkingInfo(inputValue: string) {
 		setLoading(true);
 		const q = query(collection(db, "parking_records"));
 		const querySnapshot = await getDocs(q);
@@ -55,15 +68,8 @@ export default function Settlement() {
 			}
 		});
 
-		if (!findInputValue) {
-			setLoading(false);
-			setInputErrorMessage("등록되지않은 차량입니다");
-			return;
-		} else {
-			setLoading(false);
-			setParkingRecord(findInputValue);
-		}
-	};
+		return findInputValue;
+	}
 
 	return (
 		<div>
@@ -97,19 +103,18 @@ export default function Settlement() {
 						loading={loading}
 						cssOverride={override}
 						size={10}
-						aria-labels="Loading Spinner"
 						data-testid="loader"
 					/>
 				</div>
 			) : null}
-			{!loading && parkingRecord && (
+			{!loading && parkingInfo && (
 				<div>
 					<div>
-						{/* {parkingRecord?.data.car_number} */}
+						{/* {parkingInfo?.data.car_number} */}
 						<div className="flex justify-center">
 							<img
 								className="h-40 w-40 rounded-sm"
-								src={parkingRecord?.data.imgUrl}
+								src={parkingInfo.data.imgUrl}
 								alt=""
 							/>
 						</div>
