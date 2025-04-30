@@ -43,6 +43,7 @@ export default function Settlement() {
 			return;
 		}
 
+		setLoading(true);
 		const result = await getParkingInfo(inputValue);
 		if (!result) {
 			setLoading(false);
@@ -55,7 +56,6 @@ export default function Settlement() {
 	};
 
 	async function getParkingInfo(inputValue: string) {
-		setLoading(true);
 		const q = query(collection(db, "parking_records"));
 		const querySnapshot = await getDocs(q);
 
