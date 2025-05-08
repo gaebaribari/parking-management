@@ -9,7 +9,8 @@
 - CRA 프로젝트 Vite로 마이그레이션
 - REST API를 활용한 카카오 로그인 구현
 - Firebase Database를 활용한 데이터 조회 및 업로드
-- Firebase Storage를 통해 이미지 서버 업로드
+- Algolia 도입으로 문자 포함 검색 기능 구현
+- Algolia 쿼리 최적화로 불필요한 데이터 전송 방지 및 성능 개선
 - 사용자 경험을 고려한 로딩 상태 처리 구현
 
 ## 관련 사이트
