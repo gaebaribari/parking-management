@@ -1,7 +1,12 @@
-import { getDocs, collection, query } from "firebase/firestore";
-import { db } from "../firebase";
 import { useState, CSSProperties } from "react";
 import { SyncLoader } from "react-spinners";
+import React from "react";
+import { SearchResponse, algoliasearch } from "algoliasearch";
+
+const client = algoliasearch(
+	import.meta.env.VITE_ALGOLIA_APP_ID,
+	import.meta.env.VITE_ALGOLIA_SEARCH_API_KEY
+);
 
 const override: CSSProperties = {
 	display: "block",
@@ -15,16 +20,11 @@ type Data = {
 	timestamp: string;
 };
 
-type ParkingData = {
-	id: string;
-	data: Data;
-};
-
 export default function Settlement() {
 	const [inputValue, setInputValue] = useState<string>("");
 	const [inputErrorMessage, setInputErrorMessage] = useState("");
 	const [loading, setLoading] = useState(false);
-	const [parkingInfo, setParkingInfo] = useState<ParkingData | undefined>();
+	const [parkingInfo, setParkingInfo] = useState<Data | undefined>();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -44,31 +44,34 @@ export default function Settlement() {
 		}
 
 		setLoading(true);
-		const result = await getParkingInfo(inputValue);
-		if (!result) {
+		const results = await getParkingInfo(inputValue);
+
+		if (results.length == 0) {
 			setLoading(false);
 			setInputErrorMessage("등록되지않은 차량입니다");
 			return;
 		} else {
-			setParkingInfo(result);
+			setParkingInfo({
+				car_number: results[0]["car_number"] as string,
+				imgUrl: results[0]["imgUrl"] as string,
+				timestamp: results[0]["timestamp"] as string,
+			});
 			setLoading(false);
 		}
 	};
 
 	async function getParkingInfo(inputValue: string) {
-		const q = query(collection(db, "parking_records"));
-		const querySnapshot = await getDocs(q);
-
-		let findInputValue: ParkingData | undefined;
-
-		querySnapshot.forEach((doc) => {
-			const data = doc.data() as Data;
-			if (data.car_number.includes(inputValue)) {
-				findInputValue = { id: doc.id, data };
-			}
+		const { results } = await client.search({
+			requests: [
+				{
+					indexName: "parking_records",
+					query: inputValue,
+					typoTolerance: false,
+				},
+			],
 		});
-
-		return findInputValue;
+		const { hits } = results[0] as SearchResponse;
+		return hits;
 	}
 
 	return (
@@ -110,11 +113,11 @@ export default function Settlement() {
 			{!loading && parkingInfo && (
 				<div>
 					<div>
-						{/* {parkingInfo?.data.car_number} */}
+						{/* {parkingInfo?.car_number} */}
 						<div className="flex justify-center">
 							<img
 								className="h-40 w-40 rounded-sm"
-								src={parkingInfo.data.imgUrl}
+								src={parkingInfo.imgUrl}
 								alt=""
 							/>
 						</div>
