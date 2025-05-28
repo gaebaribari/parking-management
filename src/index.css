@@ -1,11 +1,1 @@
 @import "tailwindcss";
-
-@layer components {
-	.LoginInput {
-		@apply bg-gray-100 w-full border border-gray-100 focus:placeholder:opacity-0  h-12  pl-5 outline-none focus:border-blue-500 focus:border-2 rounded-lg;
-	}
-
-	.CheckboxInput {
-		@apply w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500;
-	}
-}

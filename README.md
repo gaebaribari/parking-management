@@ -2,19 +2,16 @@
 
 > 기존에는 1층 인포데스크에서만 가능했던 쿠폰 결제와 정산 과정을 모두 핸드폰으로 해결할 수 있도록, 사용자의 번거로움을 줄이기 위한 ‘주차 정산 프로그램’을 직접 기획하고 개발 중입니다. 완성도 향상 후 실제 건물 운영 측에 도입을 제안할 계획입니다.
 
----
+<p align="center">
+<img src="https://github.com/user-attachments/assets/d905c3eb-f21c-4681-a4fb-0e2c79e65a4d" width="60%"></p>
 
 ## 관련 링크
 
 - 기술 블로그: https://velog.io/@gaebaribari/series/todolist
 
----
-
 ## 개발 환경
 
-## `Vite`, `React`, `Typescript`, `Tailwind CSS`,
-
----
+`Vite`, `React`, `Typescript`, `Tailwind CSS`
 
 ## 주요성과
 
@@ -44,6 +41,4 @@
 
 7. 결제 흐름 제어 로직 구현
 
-   `window.history`와 전역 상태를 활용해 비정상적인 페이지 접근을 차단하고, 조건부 렌더링으로 중복 결제 및 흐름 오류를 방지했습니다
-
----
+   `window.history`와 전역 상태를 활용해 비정상적인 페이지 접근을 차단하고, 라우터의 기본 속성을 사용해 뒤로가기까지 방어하며 중복 결제 및 흐름 오류를 방지했습니다

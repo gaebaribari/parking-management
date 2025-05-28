@@ -1,28 +1,35 @@
 import { useState } from "react";
-import React from "react";
-// 뒤로가기 있어야돼
-// 결제하기 바로가는 버튼만들기 왜냐 결제하기는 돈 바로 가는게 좋을거같앗따
+import { NavLink } from "react-router-dom";
 
-export default function Payment() {
+interface CouponPaymentProps {
+	discountParkingTime: (discountTime: number) => void;
+	parkingTime: number;
+}
+
+export default function CouponPayment({
+	discountParkingTime,
+	parkingTime,
+}: CouponPaymentProps) {
 	const [parkingTickets, setParkingTickets] = useState([
-		{ id: 1, name: "2시간 할인", amount: 0, price: 2000 },
-		{ id: 2, name: "3시간 할인", amount: 0, price: 3000 },
-		{ id: 3, name: "종일권 (24시간)", amount: 0, price: 5000 },
+		{ id: 1, name: "3시간 할인", duration: 3, amount: 0, price: 3000 },
+		{ id: 2, name: "5시간 할인", duration: 5, amount: 0, price: 5000 },
+		{ id: 3, name: "종일권 (24시간)", duration: 24, amount: 0, price: 10000 },
 	]);
 
-	const handleIncrement = (id: number) => {
-		setParkingTickets(
-			parkingTickets.map((counter) =>
-				counter.id === id ? { ...counter, amount: counter.amount + 1 } : counter
-			)
-		);
-	};
+	const updateCouponCount = (id: number, amount: number) => {
+		if (amount == 1 && parkingTime <= 0)
+			return alert("할인가능한 시간이 없습니다");
 
-	const handleDecrement = (id: number) => {
+		const ticket = parkingTickets.find((ticket) => ticket.id == id);
+		if (!ticket) return;
+		if (amount == -1 && ticket.amount <= 0) return;
+
+		discountParkingTime(ticket.duration * amount);
+
 		setParkingTickets(
 			parkingTickets.map((counter) =>
 				counter.id === id
-					? { ...counter, amount: Math.max(0, counter.amount - 1) }
+					? { ...counter, amount: Math.max(0, counter.amount + amount) }
 					: counter
 			)
 		);
@@ -32,8 +39,6 @@ export default function Payment() {
 		(sum, ticket) => sum + ticket.price * ticket.amount,
 		0
 	);
-
-	const handleClick = async () => {};
 
 	return (
 		<div>
@@ -69,7 +74,7 @@ export default function Payment() {
 										<button
 											type="button"
 											id="decrement-button"
-											onClick={() => handleDecrement(ticket.id)}
+											onClick={() => updateCouponCount(ticket.id, -1)}
 											data-input-counter-decrement="quantity-input"
 											className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
 										>
@@ -82,9 +87,9 @@ export default function Payment() {
 											>
 												<path
 													stroke="currentColor"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													stroke-width="2"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
 													d="M1 1h16"
 												/>
 											</svg>
@@ -104,7 +109,7 @@ export default function Payment() {
 										<button
 											type="button"
 											id="increment-button"
-											onClick={() => handleIncrement(ticket.id)}
+											onClick={() => updateCouponCount(ticket.id, 1)}
 											data-input-counter-increment="quantity-input"
 											className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
 										>
@@ -117,9 +122,9 @@ export default function Payment() {
 											>
 												<path
 													stroke="currentColor"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													stroke-width="2"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
 													d="M9 1v16M1 9h16"
 												/>
 											</svg>
@@ -132,10 +137,12 @@ export default function Payment() {
 					</tbody>
 				</table>
 			</div>
-			<div>총 금액 : {totalPrice} 원 </div>
-			<div>
-				<button onClick={handleClick}>카카오 결제하기</button>
-			</div>
+			<NavLink
+				to="/confirm"
+				className="block mt-3 size-1/3 text-center text-white bg-blue-700 px-4 py-2 rounded-lg"
+			>
+				{totalPrice} 원 결제하기
+			</NavLink>
 		</div>
 	);
 }
