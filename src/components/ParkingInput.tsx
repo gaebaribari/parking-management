@@ -3,7 +3,6 @@ import React from "react";
 import { SearchResponse, algoliasearch } from "algoliasearch";
 import LoadingSpinner from "./LoadingSpinner";
 import { useParkingInfoStore } from "../stores/useParkingInfo";
-import { useNavigate } from "react-router-dom";
 
 const client = algoliasearch(
 	import.meta.env.VITE_ALGOLIA_APP_ID,
@@ -15,7 +14,6 @@ export default function ParkingInput() {
 	const [inputErrorMessage, setInputErrorMessage] = useState("");
 	const [loading, setLoading] = useState(false);
 	const { updateParkingInfo } = useParkingInfoStore();
-	const navigate = useNavigate();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -49,7 +47,6 @@ export default function ParkingInput() {
 				timestamp: results[0]["timestamp"] as string,
 			});
 			setLoading(false);
-			navigate(`/detail/${results[0]["objectID"]}`);
 		}
 	};
 

@@ -1,39 +1,58 @@
-interface ParkingInfoProps {
-	parkingInfo: any;
-	parkingTime: number;
-}
+import { useEffect, useState } from "react";
+import { useParkingInfoStore } from "../stores/useParkingInfo";
+import { Link, NavLink } from "react-router-dom";
 
-export default function ParkingInfo({
-	parkingInfo,
-	parkingTime,
-}: ParkingInfoProps) {
-	const progressPercentage =
-		parkingTime > 0 ? Math.min(100, (parkingTime / 24) * 100) : 0;
-	const styles = {
-		promAlert: {
-			width: `${progressPercentage}%`,
-		} as React.CSSProperties,
-	};
+export default function ParkingInfo() {
+	const { parkingInfo } = useParkingInfoStore();
+	const [parkingTime, setParkingTime] = useState(0);
+
+	useEffect(() => {
+		let nowDate = new Date("2025-02-14 15:35:13");
+		let ParkingTimestamp = new Date(parkingInfo?.timestamp as string);
+
+		let diffTime =
+			((nowDate.getTime() - ParkingTimestamp.getTime()) / (1000 * 60 * 60)) %
+			24;
+		setParkingTime(diffTime);
+	}, []);
 
 	return (
-		<div>
+		<div className="p-6 space-y-6">
 			<div className="flex justify-center">
-				<img className="h-40 w-40 rounded-sm" src={parkingInfo?.imgUrl} />
+				<img
+					className="h-36 w-36 object-cover rounded-md border"
+					src={parkingInfo?.imgUrl}
+					alt="차량 이미지"
+				/>
 			</div>
-			<div>
-				<p>
-					<span className="font-bold">차 번호 :</span> {parkingInfo?.car_number}
-				</p>
-				<p>
-					<span className="font-bold">주차 시간 :</span>
-					{parkingTime >= 0 ? parkingTime : 0} 시간{" "}
-				</p>
+
+			<div className="border-t border-gray-200 pt-4 space-y-3 text-gray-800 text-[16px]">
+				<div className="flex items-center">
+					<span className="w-32 font-medium text-gray-600">차 번호</span>
+					<span>{parkingInfo?.car_number}</span>
+				</div>
+				<div className="flex items-center">
+					<span className="w-32 font-medium text-gray-600">입차 시간</span>
+					<span>{parkingInfo?.timestamp}</span>
+				</div>
+				<div className="flex items-center">
+					<span className="w-32 font-medium text-gray-600">주차 시간</span>
+					<span>{parkingTime}시간</span>
+				</div>
+				<div className="flex items-center">
+					<span className="w-32 font-medium text-gray-600">결제 금액</span>
+					<span>{parkingTime * 1000} 원</span>
+				</div>
 			</div>
-			<div className="w-full bg-gray-200 my-4 rounded-full h-4">
-				<div
-					className="bg-blue-600 h-4 rounded-full"
-					style={styles.promAlert}
-				></div>
+
+			<div className="pt-4">
+				<NavLink
+					to="/payment"
+					state={{ price: parkingTime * 1000 }}
+					className="inline-block w-100 bg-blue-600 hover:bg-blue-700 text-white text-center font-semibold py-3 px-6 rounded-md transition duration-200"
+				>
+					{parkingTime * 1000}원 결제하기
+				</NavLink>
 			</div>
 		</div>
 	);
