@@ -7,7 +7,7 @@ export default function Success() {
 	const [blockAccess, setBlockAccess] = useState(false);
 
 	useEffect(() => {
-		if (window.history.state.idx == 0 && !parkingInfo) setBlockAccess(true);
+		if (window.history.state.idx == 0 || !parkingInfo) setBlockAccess(true);
 		updateParkingInfo(undefined);
 	}, []);
 	return (
