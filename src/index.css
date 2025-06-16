@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+@layer components {
+	.btn-blue {
+		@apply block text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none text-center font-semibold rounded-md px-4 py-3 cursor-pointer transition duration-200 mt-4;
+	}
+}

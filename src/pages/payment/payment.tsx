@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useParkingInfoStore } from "../../stores/useParkingInfo";
 import AccessBlocked from "../../components/AccessBlocked";
 
@@ -9,7 +9,6 @@ export default function Payment() {
 	const navigate = useNavigate();
 	const { parkingInfo } = useParkingInfoStore();
 	const [blockAccess, setBlockAccess] = useState(false);
-	const location = useLocation();
 	useEffect(() => {
 		if (!parkingInfo) {
 			setBlockAccess(true);
@@ -27,13 +26,13 @@ export default function Payment() {
 	}, []);
 
 	return (
-		<div className="p-20">
+		<div>
 			{blockAccess ? (
 				<AccessBlocked />
 			) : (
-				<div>
+				<div className="flex flex-col items-center justify-center min-h-screen">
 					<LoadingSpinner loading={loading} />
-					<p className="text-center">{location.state.price}원 결제하는중</p>
+					<p className="text-lg font-semibold">결제 진행 중입니다</p>
 				</div>
 			)}
 		</div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParkingInfoStore } from "../stores/useParkingInfo";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function ParkingInfo() {
 	const { parkingInfo } = useParkingInfoStore();
@@ -20,7 +20,7 @@ export default function ParkingInfo() {
 		<div className="p-6 space-y-6">
 			<div className="flex justify-center">
 				<img
-					className="h-36 w-36 object-cover rounded-md border"
+					className="h-36 w-36 object-cover rounded-md border border-gray-600"
 					src={parkingInfo?.imgUrl}
 					alt="차량 이미지"
 				/>
@@ -46,11 +46,7 @@ export default function ParkingInfo() {
 			</div>
 
 			<div className="pt-4">
-				<NavLink
-					to="/payment"
-					state={{ price: parkingTime * 1000 }}
-					className="inline-block w-100 bg-blue-600 hover:bg-blue-700 text-white text-center font-semibold py-3 px-6 rounded-md transition duration-200"
-				>
+				<NavLink to="/payment" className="btn-blue w-100 py-3">
 					{parkingTime * 1000}원 결제하기
 				</NavLink>
 			</div>

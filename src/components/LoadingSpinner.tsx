@@ -13,7 +13,7 @@ interface LoadingSpinnerProps {
 
 export default function LoadingSpinner({ loading }: LoadingSpinnerProps) {
 	return (
-		<div className="flex pb-5 align-middle justify-center">
+		<div className="flex mb-10 align-middle justify-center">
 			<SyncLoader
 				color="#1447e6"
 				loading={loading}
