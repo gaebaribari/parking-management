@@ -13,8 +13,10 @@ export default function ParkingInfo() {
 		let diffTime =
 			((nowDate.getTime() - ParkingTimestamp.getTime()) / (1000 * 60 * 60)) %
 			24;
-		setParkingTime(diffTime);
+		setParkingTime(Number(diffTime.toFixed(2)));
 	}, []);
+
+	const price = parkingTime * 1000;
 
 	return (
 		<div className="p-6 space-y-6">
@@ -41,13 +43,13 @@ export default function ParkingInfo() {
 				</div>
 				<div className="flex items-center">
 					<span className="w-32 font-medium text-gray-600">결제 금액</span>
-					<span>{parkingTime * 1000} 원</span>
+					<span>{price} 원</span>
 				</div>
 			</div>
 
 			<div className="pt-4">
 				<NavLink to="/payment" className="btn-blue w-100 py-3">
-					{parkingTime * 1000}원 결제하기
+					{price}원 결제하기
 				</NavLink>
 			</div>
 		</div>
