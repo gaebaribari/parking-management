@@ -75,7 +75,7 @@ export default function ParkingInput() {
 							setInputErrorMessage("");
 						}}
 						id="search"
-						className="block w-full p-4 ps-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:border-blue-500 focus:border-2 focus:outline-1 focus:outline-white"
+						className="block w-full p-4 ps-4 text-sm text-gray-900 border-2 border-gray-200 rounded-lg bg-gray-50 focus:border-blue-500 focus:border-2 focus:outline-none"
 						placeholder="뒷 번호 4자리"
 					/>
 					<button
