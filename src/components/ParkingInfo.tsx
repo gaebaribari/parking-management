@@ -19,7 +19,7 @@ export default function ParkingInfo() {
 	const price = parkingTime * 1000;
 
 	return (
-		<div className="p-6 space-y-6">
+		<div className="space-y-6">
 			<div className="flex justify-center">
 				<img
 					className="h-36 w-36 object-cover rounded-md border border-gray-600"
@@ -46,9 +46,8 @@ export default function ParkingInfo() {
 					<span>{price} 원</span>
 				</div>
 			</div>
-
 			<div className="pt-4">
-				<NavLink to="/payment" className="btn-blue w-100 py-3">
+				<NavLink to="/payment" className="btn-blue">
 					{price}원 결제하기
 				</NavLink>
 			</div>
