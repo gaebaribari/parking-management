@@ -10,6 +10,7 @@
 완성도를 높인 후 실제 건물 운영 측에 도입을 제안할 계획입니다.
 
 홈페이지 👉 https://gaebaribari.github.io/parking-management/
+테스트 코드 : `2222`, `3333`, `6666`
 
 ## 개발 환경
 
