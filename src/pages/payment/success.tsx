@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParkingInfoStore } from "../../stores/useParkingInfo";
 import AccessBlocked from "../../components/AccessBlocked";
+import { useBlockAccess } from "../../hooks/useBlockAccess";
 
 export default function Success() {
-	const { parkingInfo, updateParkingInfo } = useParkingInfoStore();
-	const [blockAccess, setBlockAccess] = useState(false);
+	const { updateParkingInfo } = useParkingInfoStore();
+	const blockAccess = useBlockAccess();
 
 	useEffect(() => {
-		if (window.history.state.idx == 0 || !parkingInfo) setBlockAccess(true);
 		updateParkingInfo(undefined);
 	}, []);
 	return (

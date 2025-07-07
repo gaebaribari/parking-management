@@ -1,20 +1,15 @@
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
-import { useParkingInfoStore } from "../../stores/useParkingInfo";
 import AccessBlocked from "../../components/AccessBlocked";
+import { useBlockAccess } from "../../hooks/useBlockAccess";
 
 export default function Payment() {
 	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
-	const { parkingInfo } = useParkingInfoStore();
-	const [blockAccess, setBlockAccess] = useState(false);
-	useEffect(() => {
-		if (!parkingInfo) {
-			setBlockAccess(true);
-			return;
-		}
+	const blockAccess = useBlockAccess();
 
+	useEffect(() => {
 		let timer = setTimeout(() => {
 			setLoading(false);
 			navigate("/success", { replace: true });
