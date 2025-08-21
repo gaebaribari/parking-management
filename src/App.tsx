@@ -3,7 +3,6 @@ import Index from "./pages";
 import Payment from "./pages/payment/payment";
 import Success from "./pages/payment/success";
 import Error from "./pages/error";
-import { basename } from "path/win32";
 
 const router = createBrowserRouter(
 	[
